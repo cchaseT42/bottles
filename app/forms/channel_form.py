@@ -3,7 +3,6 @@ from wtforms import StringField, DecimalField, IntegerField
 from wtforms.validators import DataRequired
 from app.models import db
 
-class ServerForm(FlaskForm):
-  owner_id = IntegerField("owner_id", validators=[DataRequired()])
+class ChannelForm(FlaskForm):
   name = StringField("name", validators=[DataRequired()])
-  img_url = StringField("img_url")
+  server_id = StringField("server_id", validators=[DataRequired()])

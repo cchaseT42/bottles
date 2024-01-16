@@ -7,6 +7,10 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.server_routes import server_routes
+from .api.member_routes import member_routes
+from .api.channel_routes import channel_routes
+from .api.message_routes import message_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -29,6 +33,9 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(server_routes, url_prefix='/api/servers')
+app.register_blueprint(member_routes, url_prefix='/api/members')
+app.register_blueprint(channel_routes, url_prefix='/api/channel')
+app.register_blueprint(message_routes, url_prefix='/api/messages')
 db.init_app(app)
 Migrate(app, db)
 
@@ -90,3 +97,6 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+if __name__ == '__main__':
+    socketio.run(app)
